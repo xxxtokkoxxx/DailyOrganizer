@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Npgsql;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
@@ -13,8 +12,19 @@ DotNetEnv.Env.Load();
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    Console.WriteLine("DATABASE_URL is not set!");
+}
+else
+{
+    Console.WriteLine($"DATABASE_URL: {connectionString}");
+}
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL")));
+    options.UseNpgsql(connectionString));
 
 ConfigureServices(builder);
 builder.Services.AddSwaggerGen(AddJWTToSwagger);
@@ -29,10 +39,6 @@ app.UseAuthorization();
 app.MapControllers();
 app.Run();
 
-var connectionString = "Host=postgres.railway.internal;Database=railway;Username=postgres;Password=CDqGFOWqwJHXQIhWxKYMsUofkgcTIglW;Port=5432";
-using var connection = new NpgsqlConnection(connectionString);
-connection.Open();
-Console.WriteLine("Connection successful!");
 
 void ConfigureServices(WebApplicationBuilder builder)
 {
