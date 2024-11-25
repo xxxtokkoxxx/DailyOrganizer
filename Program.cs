@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Npgsql;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
@@ -28,6 +29,10 @@ app.UseAuthorization();
 app.MapControllers();
 app.Run();
 
+var connectionString = "Host=postgres.railway.internal;Database=railway;Username=postgres;Password=CDqGFOWqwJHXQIhWxKYMsUofkgcTIglW;Port=5432";
+using var connection = new NpgsqlConnection(connectionString);
+connection.Open();
+Console.WriteLine("Connection successful!");
 
 void ConfigureServices(WebApplicationBuilder builder)
 {
