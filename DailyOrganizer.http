@@ -1,0 +1,6 @@
+@DailyOrganizer_HostAddress = http://localhost:5064
+
+GET {{DailyOrganizer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

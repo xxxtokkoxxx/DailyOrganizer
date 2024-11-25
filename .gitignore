@@ -1,0 +1,39 @@
+# System files
+[Dd]esktop.ini
+Thumbs.db
+*.log
+
+# General files
+*.suo
+*.user
+*.userprefs
+*.sln.docstates
+*.sln.ide
+*.sln.suo
+
+# Generated folders
+bin/
+obj/
+out/
+
+# Settings IDE
+.vs/
+.idea/
+*.db
+
+# Packages dependency
+packages/
+*.nupkg
+
+# Settings Entity Framework
+*.db
+
+# Settings .NET Core
+project.lock.json
+project.fragment.lock.json
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
+*.env
+
+ 
